@@ -31,8 +31,10 @@ class LinkedList {
 
     convertNumtoLinkedReversed(num) {
         let tempNum = num.toString();
-        for (let i = tempNum.length-1; i >= 0; i--) {
-           this.addToLinkedList(tempNum[i]);
+        console.log("reversing:", tempNum)
+        for (let i = tempNum.length - 1; i >= 0; i--) {
+            console.log("whyyy", i, tempNum[i]);
+            this.addToLinkedList(parseFloat(tempNum[i]));
         }
     }
 }
@@ -43,39 +45,64 @@ function retrieveNumberLL(myLL) {
     let tempLL = myLL.head
     let num = myLL.head.value.toString();
 
-    console.log("this is the head", tempLL)
+    // console.log("this is the head", tempLL)
     while (tempLL.next !== null) {
 
         tempLL = tempLL.next;
-        console.log(tempLL.value)
+        // console.log(tempLL.value)
         num = tempLL.value.toString() + num;
     }
-    return num*1;
+    return num;
 }
 
 let myLL1 = new LinkedList();
-let num1= 22;
+let num1 = 9;
 myLL1.convertNumtoLinkedReversed(num1);
 
 let myLL2 = new LinkedList();
-let num2= 22;
+let num2 = 29;
 myLL2.convertNumtoLinkedReversed(num2);
 
 
 
 
-function addLinks(link1, link2){
+function addLinks(myLL1, myLL2) {
+    let node1 = myLL1.head;
+    let node2 = myLL2.head;
+    let carry = 0;
+    let totalLink = new LinkedList()
+    let run = true;
 
-    let num1 = retrieveNumberLL(link1);
-    let num2 = retrieveNumberLL(link2);
-    let num3 = num1 + num2;
-    
-    let totalLink = new LinkedList();
-    totalLink.convertNumtoLinkedReversed(num3);
-    console.log(totalLink);
+    while (run) {
+        if (node1 !== null && node2 !== null) {
+            sum = node1.value + node2.value + carry;
+            if (sum >= 10) {
+                carry = Math.floor(sum / 10)
+                console.log("carry", carry)
+                sum = sum % 10;
+                console.log("sum", sum)
+            }
+            totalLink.addToLinkedList(sum);
+            node1 = node1.next;
+            node2 = node2.next;
+        } else if (node1 === null && node2) {
+            totalLink.addToLinkedList(node2.value + carry)
+            carry = 0
+            node2 = node2.next;
+        } else if (node1 && node2 === null) {
+            totalLink.addToLinkedList(node1.value + carry)
+            carry = 0
+            node1 = node1.next;
+        }
 
-    let numfinal = retrieveNumberLL(totalLink);
-    console.log(numfinal);
+        if (node1 === null && node2 === null) {
+            run = false;
+        }
+
+
+
+    }
+
 }
 
 addLinks(myLL1, myLL2);
