@@ -155,16 +155,28 @@ class BinarySearchTree {
         }
     }
 
-    * postOrderTraversal(node = this.root){
-        if(node.left && node){
+    * postOrderTraversal(node = this.root) {
+        if (node.left && node) {
             yield* this.postOrderTraversal(node.left)
         }
-        if(node.right && node){
+        if (node.right && node) {
             yield* this.postOrderTraversal(node.right)
         }
         yield node;
-       
+
     }
+    rightRotation(node) {
+        const newParent = node.left;
+        const grandparent = node.parent;
+        const previousRight = newParent.right;
+
+        swapParentChild(node, newParent, grandparent);
+        newParent.setRightAndUpdateParent(node);
+        node.setLeftAndUpdateParent(previousRight);
+        
+        return newParent;
+    }
+
 
 }
 
