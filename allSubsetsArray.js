@@ -4,7 +4,6 @@ function printSubsets2(initialArray, mySet, limit,  myOptionSet, prefix = [] ) {
         return;
     }
 
-
     for (let i = 0; i < initialArray.length; i++) {
         
         console.log(initialArray[i])
@@ -19,7 +18,6 @@ function printSubsets2(initialArray, mySet, limit,  myOptionSet, prefix = [] ) {
         }
         mySet.add(joined);
         printSubsets2(initialArray.slice(i + 1), mySet, limit, myOptionSet, [...prefix, initialArray[i]] )
-
     }
     return mySet;
 }
